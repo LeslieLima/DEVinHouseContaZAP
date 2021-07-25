@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.todo {
+    display: flex;
+    width: 50%;
+    flex-direction:column;
+    align-items: center;
+    margin: 0 auto;
+    background-color: #BBBBBB;
+}
+
+.titulo-principal{
+    margin-top: 25px;
+    text-align: center;
+    font-family: Verdana;
+    padding: 5px;
+}
+
+form {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    padding: 8px;
+}
+
+.novo-item{
+    background-color: #447172;
+    width: 80%;
+    height: 70px;
+    padding: 15px;
+    margin: 15px;
+    box-shadow: 1px 1px 5px;
+}
+
+#inputItem {
+    width: 70%;
+    height: 28px;
+    font-weight: bold;
+    padding: 5px;
+ }
+
+ #btnAdd{
+    width: 25%;
+    height: 28px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.lista-item {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.item{
+    display: flex;
+    width: 100%;
+    height: 60px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(99, 128, 132);
+    box-shadow: 1px 1px 5px;
+}
+
+.item > div {
+    width: 80%;
+}
+
+.item > input[type='button'],
+.item > input[type='checkbox'] {
+    width: 25px;
+    height: 25px;
+    font-family: Verdana;
+}
+
+.item > input[type='checkbox']:checked  + div {
+    text-decoration:line-through;
+}
