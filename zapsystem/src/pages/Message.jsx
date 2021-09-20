@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import api from '../services/api';
 import MySelect from '../components/MySelect';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
 
+import Button from '@material-ui/core/Button';
+import Stack from '@mui/material/Stack';
 import { Container } from '@mui/material';
 
 
@@ -75,60 +76,66 @@ const Message = () => {
 
 
     return (
-        <Container maxWidth='lg'>
+        <Container maxWidth='md'>
 
-            <div className='menu'>
-                <h1>Messagens</h1>
+            <div className='mensagens'>
+
+                <h1>Mensagens</h1>
                 <form>
-                    <Button variant="contained" color="primary">Pesquisar</Button>
+                    <Stack spacing={2} direction="row">
 
-                    <Link to="/newmessage"><Button variant="contained" color="primary">Nova Mensagem</Button></Link>
+                        <Button variant="outlined" color="primary">Pesquisar</Button>
+
+                        <Link to="/newmessage"><Button variant="contained" color="primary">Nova Mensagem</Button></Link>
+                        
+                    </Stack>
                 </form>
+
             </div>
 
             <Container maxWidth='md'>
                 <div className="select">
-    
-                <MySelect
-                    label='Gatilho'
-                    options={optionsTriggers}
-                    value={optionSelected}
-                    onChange={handleChanceSelect}
-                />
-   
-                <MySelect
-                    label='Canal'
-                    options={optionsChannels}
-                    value={optionSelected}
-                    onChange={handleChanceSelect}
-                />
-  
-                <MySelect
-                    label='Timer'
-                    options={optionsTimer}
-                    value={optionSelected}
-                    onChange={handleChanceSelect}
-                />
+
+                    <MySelect
+                        label='Gatilho'
+                        options={optionsTriggers}
+                        value={optionSelected}
+                        onChange={handleChanceSelect}
+                    />
+
+                    <MySelect
+                        label='Canal'
+                        options={optionsChannels}
+                        value={optionSelected}
+                        onChange={handleChanceSelect}
+                    />
+
+                    <MySelect
+                        label='Timer'
+                        options={optionsTimer}
+                        value={optionSelected}
+                        onChange={handleChanceSelect}
+                    />
 
                 </div>
-           
-                <Container maxWidth='md'>           
-                <table border="1" style={{ width: '70%' }}>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Elemento1</td>
-                            <td><button>Mensagens</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+
+                <Container maxWidth='md'>
+                    <table border="1" style={{ width: '70%' }}>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Elemento1</td>
+                                <td><button>Mensagens</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </Container>
-           
+
             </Container>
 
         </Container>
