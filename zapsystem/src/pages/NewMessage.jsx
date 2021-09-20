@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../services/api';
+import MySelect from '../components/MySelect';
 import { Link } from 'react-router-dom';
 
 import Swal from 'sweetalert2';
@@ -8,6 +9,11 @@ import * as yup from 'yup';
 import { Container } from '@mui/material';
 import Button from '@material-ui/core/Button';
 import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+
+
+
+
 
 
 const schema = yup.object().shape({
@@ -53,6 +59,57 @@ const NewMessage = () => {
 
     }
 
+    const [optionSelectedTriggers, setOptionSelectedTriggers] = useState('')
+    const [optionSelectedChannels, setOptionSelectedChannels] = useState('')
+
+    const [optionsTriggers, setOptionsTriggers] = useState([])
+    const [optionsChannels, setOptionsChannels] = useState([])
+
+    const handleGetOptionsTriggers = async () => {
+        try {
+            const response = await api.get('/triggers');
+            const optionsFormatted = response.data.map(item => {
+                return {
+                    label: item.name,
+                    value: item.name
+                }
+            });
+
+            setOptionsTriggers(optionsFormatted);
+        } catch (error) {
+        }
+    }
+
+    const handleGetOptionsChannels = async () => {
+        try {
+            const response = await api.get('/channels');
+            const optionsFormatted = response.data.map(item => {
+                return {
+                    label: item.name,
+                    value: item.name
+                }
+            });
+
+            setOptionsChannels(optionsFormatted);
+        } catch (error) {
+        }
+    }
+
+
+
+    useEffect(() => {
+        handleGetOptionsTriggers();
+        handleGetOptionsChannels();
+    }, []);
+
+    const handleChangeSelectTriggers = (event) => {
+        setOptionSelectedTriggers(event.target.value)
+    }
+
+    const handleChangeSelectChannels = (event) => {
+        setOptionSelectedChannels(event.target.value)
+    }
+
     return (
         <Container maxWidth='md'>
 
@@ -68,6 +125,33 @@ const NewMessage = () => {
 
                         </Stack>
                     </form>
+                </div>
+            </Container>
+
+            <Container maxWidth='md'>
+                <div className="select">
+
+                    <MySelect
+                        label='Gatilho'
+                        options={optionsTriggers}
+                        value={optionSelectedTriggers}
+                        onChange={handleChangeSelectTriggers}
+                    />
+
+                    <MySelect
+                        label='Canal'
+                        options={optionsChannels}
+                        value={optionSelectedChannels}
+                        onChange={handleChangeSelectChannels}
+                    />
+
+                    <TextField
+                        required
+                        id="outlined-required"
+                        label="Timer"
+                        variant="outlined"
+                    />
+
                 </div>
             </Container>
 
