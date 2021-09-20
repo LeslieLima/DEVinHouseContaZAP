@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 import MySelect from '../components/MySelect';
 import { Link } from 'react-router-dom';
@@ -6,17 +6,17 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Stack from '@mui/material/Stack';
 import { Container } from '@mui/material';
-
+import TextField from '@mui/material/TextField';
 
 
 const Message = () => {
 
 
-    const [optionSelected, setOptionSelected] = useState('')
+    const [optionSelectedTriggers, setOptionSelectedTriggers] = useState('')
+    const [optionSelectedChannels, setOptionSelectedChannels] = useState('')
 
     const [optionsTriggers, setOptionsTriggers] = useState([])
     const [optionsChannels, setOptionsChannels] = useState([])
-    const [optionsTimer, setOptionsTimer] = useState([])
 
     const handleGetOptionsTriggers = async () => {
         try {
@@ -48,32 +48,20 @@ const Message = () => {
         }
     }
 
-    const handleGetOptionsTimer = async () => {
-        try {
-            const response = await api.get('/messages');
-            const optionsFormatted = response.data.map(item => {
-                return {
-                    label: item.timer,
-                    value: item.timer
-                }
-            });
 
-            setOptionsTimer(optionsFormatted);
-        } catch (error) {
-        }
-    }
 
     useEffect(() => {
         handleGetOptionsTriggers();
         handleGetOptionsChannels();
-        handleGetOptionsTimer();
     }, []);
 
-    const handleChanceSelect = (event) => {
-        setOptionSelected(event.target.value)
-
+    const handleChangeSelectTriggers = (event) => {
+        setOptionSelectedTriggers(event.target.value)
     }
 
+    const handleChangeSelectChannels = (event) => {
+        setOptionSelectedChannels(event.target.value)
+    }
 
     return (
         <Container maxWidth='md'>
@@ -87,7 +75,6 @@ const Message = () => {
                         <Button variant="outlined" color="primary">Pesquisar</Button>
 
                         <Link to="/newmessage"><Button variant="contained" color="primary">Nova Mensagem</Button></Link>
-                        
                     </Stack>
                 </form>
 
@@ -99,42 +86,43 @@ const Message = () => {
                     <MySelect
                         label='Gatilho'
                         options={optionsTriggers}
-                        value={optionSelected}
-                        onChange={handleChanceSelect}
+                        value={optionSelectedTriggers}
+                        onChange={handleChangeSelectTriggers}
                     />
 
                     <MySelect
                         label='Canal'
                         options={optionsChannels}
-                        value={optionSelected}
-                        onChange={handleChanceSelect}
+                        value={optionSelectedChannels}
+                        onChange={handleChangeSelectChannels}
                     />
 
-                    <MySelect
-                        label='Timer'
-                        options={optionsTimer}
-                        value={optionSelected}
-                        onChange={handleChanceSelect}
+                    <TextField
+                        required
+                        id="outlined-required"
+                        label="Timer"
+                        variant="outlined"
                     />
 
                 </div>
+            </Container>
 
-                <Container maxWidth='md'>
-                    <table border="1" style={{ width: '70%' }}>
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Elemento1</td>
-                                <td><button>Mensagens</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </Container>
+            <Container maxWidth='md'>
+                <table border="1" style={{ width: '70%' }}>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Elemento1</td>
+                            <td><button>Mensagens</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
 
             </Container>
 
